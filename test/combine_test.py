@@ -72,14 +72,12 @@ class functional_testing(unittest.TestCase):
         self.__create_combined_test_folder()
         test_dict_data = {'asia': ['asia 1.csv', 'asia 2.csv'], 'na': ['na.csv']}
         orig_dict = combine._get_file_name_with_env(self.location_path_for_combined)
-        shutil.rmtree(self.location_path_for_combined)
         self.assertEqual(orig_dict, test_dict_data)
     
     def test_get_file_name_with_env_with_combined(self):
         self.__update_combined_test_folder()
         test_dict_data = {'na': ['na 1.csv']}
         orig_dict = combine._get_file_name_with_env(self.location_path_for_update)
-        shutil.rmtree(self.location_path_for_update)
         self.assertEqual(orig_dict, test_dict_data)
 
     def test_concat_dataframe_concat(self):
@@ -96,7 +94,6 @@ class functional_testing(unittest.TestCase):
         combine._data_transverse(self.location_path_for_combined)
         test_dataframe_data = pd.DataFrame([['4.4.4.4', 'asia'], ['4.4.4.2', 'asia'], ['4.4.4.4', 'na'], ['4.4.4.2', 'na']], columns=['Source IP', 'Environment'])
         dataframe=pd.read_csv(os.path.join(self.location_path_for_combined, "combined.csv") ,index_col=None)
-        shutil.rmtree(self.location_path_for_combined)
         self.assertTrue(test_dataframe_data.equals(dataframe))
     
     def test_data_traverse_function_update(self):
@@ -104,6 +101,5 @@ class functional_testing(unittest.TestCase):
         combine._data_transverse(self.location_path_for_update)
         test_dataframe_data = pd.DataFrame([['4.4.4.4', 'asia'], ['4.4.4.2', 'asia'], ['4.4.4.4', 'na'], ['4.4.4.2', 'na'], ['4.4.4.3', 'na'], ['4.4.4.1', 'na']], columns=['Source IP', 'Environment'])
         dataframe=pd.read_csv(os.path.join(self.location_path_for_update, "combined.csv") ,index_col=None)
-        shutil.rmtree(self.location_path_for_update)
         self.assertTrue(test_dataframe_data.equals(dataframe))
-        
+#TODO: add test for Saving Output
